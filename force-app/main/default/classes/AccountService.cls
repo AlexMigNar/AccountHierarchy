@@ -12,6 +12,10 @@ public with sharing class AccountService {
             FROM Contact
             WHERE AccountId = :Trigger.New ];
 
+            Date tod = contacts[0].Birthdate;
+            Integer temp = tod.daysBetween(date.today()) ;
+            integer age = Integer.valueOf(temp/365);
+
          System.debug('contact.size ' + contacts.size());
 
          if(contacts.isEmpty()){
@@ -19,11 +23,13 @@ public with sharing class AccountService {
             acc.Description = null;
          } else {
             System.debug('contact is not Empty');
-            acc.Description = String.format('The Contact ID: {0} Contact Name: {1} Oldest Contact Birthdate: {2}',
+            acc.Description = String.format('The Contact ID: {0} Contact Name: {1} Oldest Contact Birthdate: {2} Age of Oldest Contact: {3}',
                new List<Object>{
                   acc.Id,
                   contacts[0].Name,
-                  contacts[0].Birthdate.format()
+                  contacts[0].Birthdate.format(),
+                  age
+
                });
 
             //acc.Description = contacts[0].Birthdate.format();

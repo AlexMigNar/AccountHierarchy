@@ -48,3 +48,25 @@ sfdx force:auth:web:login --setalias MyTPforSuperbadgeLexRD --setdefaultdevhubus
 # Create a Scratch
 
 sfdx force:org:create -s -f config/project-scratch-def.json -a MyScratchOrgSuperbadgeLexRD
+
+sfdx force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json
+
+# Push all source from force-app
+
+sfdx force:source:push
+
+# Git hub Repository
+
+git version
+git config --global user.email "alexanderworld91211@gmail.com"
+git config --global user.name "AlexMigNar"
+git init
+git remote add origin https://github.com/AlexMigNar/AccountHierarchy
+git commit -m "my commit”
+git add .
+git push -f origin master
+
+
+# Log in to your Devhub
+sfdx auth:web:login --setdefaultdevhubusername --setalias DevHub
+
