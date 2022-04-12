@@ -1,28 +1,84 @@
 // Create Apex Scrpts to test account and contact creation
 
 // Scenario 1: Create a new Account and create 2 new Contacts
-Account a = new Account(Name='Naina Inc');
+Account a = new Account(Name='Naina & Sons and Sons');
 insert a;
+
+a.Description = 'This is an updated account description';
+update a;
+
+Account acc = new Account(Name='Naina Industries');
+insert acc;
 
 
 insert new List<Contact>{
-    new Contact(LastName='Contact 1',AccountId=a.Id, Birthdate=Date.today()),
-    new Contact(LastName='Contact 2',AccountId=a.Id, Birthdate=Date.today().addMonths(5))
+    new Contact(LastName='Contact 1',AccountId=acc.Id,Birthdate=Date.today()),
+    new Contact(LastName='Contact 2',AccountId=acc.Id,Birthdate=Date.today().addMonths(5)),
+    new Contact(LastName='Contact 3',AccountId=acc.Id,Birthdate=Date.today().addMonths(3))
 };
 
+List<Account> accounts = [SELECT Id,Description,(SELECT Id,Name,Description FROM ChildAccounts) FROM Account WHERE Id IN :Trigger.new ];
+if(accounts.isEmpty()) return;
+for(Account parent : accounts){
+    System.debug(parent.Description);
+    for(Account child : parent.ChildAccounts){
+        System.debug(child.Description);
+    }
+}
+delete acc;
+
+acc.Description = 'No sé';
+update acc;
 
 // Scenario 2: Existing Account and create 2 new Contacts
+
+
+    List<Account> accList = [SELECT Id, Name FROM Account Where Name =:'Naina & Sons' LIMIT 1];
+    Contact c = new Contact();
+    c.AccountId = accList[0].Id;
+    c.LastName = 'batty';
+    c.FirstName='Isabel';
+    c.Phone='123454354';
+    update c;
+
+
 
 
 // Scenario 3: New Account and Existing 2 new Contacts
 
 
 // Exexute SOQL with Selected Text
-SELECT Id,Name,Description,(SELECT Id,Birthdate FROM Contacts) FROM Account
+SELECT ParentId FROM Account
 
-SELECT Id,Name,Birthdate,AccountId,Account.Name,Account.Description FROM Contact
+SELECT AccountId,Account.Name,Account.Description FROM Contact
 
+a.Description = a.Contacts[0].Birthdate.format()
+
+SELECT Birthdate FROM Contact WHERE Birthdate!= null ORDER BY Birthdate ASC LIMIT 1
+delete[SELECT Birthdate FROM Contact];
 
 // Delete after each scenario
 delete [SELECT Id FROM Account WHERE Name != 'Sample Account for Entitlements'];
-delete [SELECT Id FROM Contact];
+delete [SELECT ChildAccount FROM Account];
+delete[SELECT Id,Name,Description,(SELECT Id,Name, Description FROM ChildAccounts) FROM Account];
+delete[SELECT Id, Name FROM Account Where Name =:'Naina Inc' LIMIT 1];
+delete[SELECT Birthdate FROM Contact WHERE Birthdate!= null ORDER BY Birthdate ASC LIMIT 1];
+delete[SELECT Id,(SELECT Id,Name, Description FROM ChildAccounts),(SELECT AccountId,Birthdate,Name FROM Contacts) FROM Account];
+delete[Select Id,(SELECT Id,Name, Description FROM ChildAccounts) FROM Account];
+// running force:data:soql:query:  This command requires a username. Specify it with
+sfdx config:set defaultusername=naina.rao.salesforce@brave-hawk-b60irg.com
+
+// Scenario 4: Existing Account and change the field records
+
+insert 
+List<Account> accList = [SELECT Id, Name, AccountNumber FROM Account Where Id = '0018c00002GwTJWAA3'];
+//Account a = new Account();
+//a.AccountId = accList[0].Id;
+for(Account a:accList){
+a.AccountNumber = 'gfdgfdgdfgdsgdfgd34398490584yhtryhdfghdfgb3253';}
+update accList;
+
+
+
+if(Description=='')
+

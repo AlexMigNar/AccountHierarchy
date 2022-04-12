@@ -1,0 +1,195 @@
+{
+    "status": 0,
+    "result": {
+      "done": true,
+      "totalSize": 13,
+      "records": [
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001WHnUdAAL"
+          },
+          "Id": "0017e00001WHnUdAAL",
+          "ParentId": null,
+          "Description": null,
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8RhNAAV"
+          },
+          "Id": "0017e00001W8RhNAAV",
+          "ParentId": null,
+          "Description": "The Contact ID: 0017e00001W8RhNAAV\n Contact Name: Girish\n Oldest Contact Birthdate: 4/24/2003",
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W88H5AAJ"
+          },
+          "Id": "0017e00001W88H5AAJ",
+          "ParentId": null,
+          "Description": null,
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8N4MAAV"
+          },
+          "Id": "0017e00001W8N4MAAV",
+          "ParentId": "0017e00001W8M19AAF",
+          "Description": null,
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8XogAAF"
+          },
+          "Id": "0017e00001W8XogAAF",
+          "ParentId": null,
+          "Description": null,
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001WUC5nAAH"
+          },
+          "Id": "0017e00001WUC5nAAH",
+          "ParentId": "0017e00001W8XoRAAV",
+          "Description": "The Contact ID: 0017e00001WUC5nAAH\n Contact Name: Contact 1\n Oldest Contact Birthdate: 4/8/2022",
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8XnsAAF"
+          },
+          "Id": "0017e00001W8XnsAAF",
+          "ParentId": null,
+          "Description": "4/6/2022",
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8SlOAAV"
+          },
+          "Id": "0017e00001W8SlOAAV",
+          "ParentId": null,
+          "Description": null,
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8XoHAAV"
+          },
+          "Id": "0017e00001W8XoHAAV",
+          "ParentId": "0017e00001W8XoRAAV",
+          "Description": null,
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W87RWAAZ"
+          },
+          "Id": "0017e00001W87RWAAZ",
+          "ParentId": "0017e00001W8M19AAF",
+          "Description": "vcgbcfv",
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8Xo2AAF"
+          },
+          "Id": "0017e00001W8Xo2AAF",
+          "ParentId": null,
+          "Description": "ngnjhfg0017e00001W8Xo2AAF",
+          "ChildAccounts": null
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8M19AAF"
+          },
+          "Id": "0017e00001W8M19AAF",
+          "ParentId": "0017e00001W8XoRAAV",
+          "Description": null,
+          "ChildAccounts": {
+            "totalSize": 2,
+            "done": true,
+            "records": [
+              {
+                "attributes": {
+                  "type": "Account",
+                  "url": "/services/data/v54.0/sobjects/Account/0017e00001W87RWAAZ"
+                },
+                "Id": "0017e00001W87RWAAZ",
+                "Name": "Naina & Sons and Sons",
+                "Description": "vcgbcfv"
+              },
+              {
+                "attributes": {
+                  "type": "Account",
+                  "url": "/services/data/v54.0/sobjects/Account/0017e00001W8N4MAAV"
+                },
+                "Id": "0017e00001W8N4MAAV",
+                "Name": "NR2",
+                "Description": null
+              }
+            ]
+          }
+        },
+        {
+          "attributes": {
+            "type": "Account",
+            "url": "/services/data/v54.0/sobjects/Account/0017e00001W8XoRAAV"
+          },
+          "Id": "0017e00001W8XoRAAV",
+          "ParentId": null,
+          "Description": "The Contact ID: 0017e00001W8XoRAAV\n Contact Name: Contact 1\n Oldest Contact Birthdate: 4/6/2022",
+          "ChildAccounts": {
+            "totalSize": 3,
+            "done": true,
+            "records": [
+              {
+                "attributes": {
+                  "type": "Account",
+                  "url": "/services/data/v54.0/sobjects/Account/0017e00001W8XoHAAV"
+                },
+                "Id": "0017e00001W8XoHAAV",
+                "Name": "ddd",
+                "Description": null
+              },
+              {
+                "attributes": {
+                  "type": "Account",
+                  "url": "/services/data/v54.0/sobjects/Account/0017e00001W8M19AAF"
+                },
+                "Id": "0017e00001W8M19AAF",
+                "Name": "NR 1",
+                "Description": null
+              },
+              {
+                "attributes": {
+                  "type": "Account",
+                  "url": "/services/data/v54.0/sobjects/Account/0017e00001WUC5nAAH"
+                },
+                "Id": "0017e00001WUC5nAAH",
+                "Name": "Naina Industries",
+                "Description": "The Contact ID: 0017e00001WUC5nAAH\n Contact Name: Contact 1\n Oldest Contact Birthdate: 4/8/2022"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+  
