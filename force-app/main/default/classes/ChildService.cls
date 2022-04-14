@@ -3,61 +3,78 @@ public with sharing class ChildService
 
    public static void updateParentDescription(List<Account> accountList) {
 
-      Set<Id> accountIds = new Set<Id>();
+      Set<Id> parentAccountIds = new Set<Id>();
+      Set<Id> ChildAccountIds = new Set<Id>();
+      
       for(Account acc : accountList){
-
+           //acc.Description='';
          System.debug(acc.ParentId);
          System.debug(acc.Contacts);
          System.debug(acc.ChildAccounts);
          System.debug(acc.Description);
 
          if(acc.ParentId != null){
-            accountIds.add(acc.ParentId);
+            parentAccountIds.add(acc.ParentId);
          }
       
-         // acc.Description ='';
-         // List<Account> accounts = [
-         //    SELECT Id,Description,ParentId,Parent.Description,(
-         //    SELECT Id,Name,Description FROM ChildAccounts),(
-         //    SELECT AccountId,Name,Birthdate FROM Contacts ORDER BY Birthdate ASC LIMIT 1)  
-         //    FROM Account 
-         //    WHERE Id IN :Trigger.new];
-         //    // WHERE Id = :new Map<Id,Account>(accountList).keySet()];
 
-         // for(Account account : accounts){
-            
-         //    if(account.ParentId ==  null && !account.ChildAccounts.isEmpty()) continue;
-            
-         //       for (account child : account.ChildAccounts){
-         //          for (Contact con : account.Contacts){ 
-         //             Date tod = Con.Birthdate;
-         //             Integer temp = tod.daysBetween(date.today()) ;
-         //             integer age = Integer.valueOf(temp/365);
-         //             System.debug(Con.Birthdate);
-         //             System.debug('No. of Days : '+temp);
-         //             System.debug('Age:' +age);
-         //          acc.Description = String.format('The Child ID: {0} \n Child Name: {1}   \n Oldest Child Contact : {2}  \n The Child Contact Account ID: {3} \n The Child Contact Birthdate: {4}',
-         //          new List<Object>{
-         //             child.Id,
-         //             child.Name,
-         //             Age,
-         //             con.AccountId,
-         //             Con.Birthdate.format()
-                  
-         //          });
-         //       } 
-         //    }
-         // }
+             
       }
 
       List<Account> accountsToUpdate = new List<Account>();
-      for(Account parent : [SELECT Id,(SELECT Id,Description FROM ChildAccounts) FROM Account WHERE Id IN :accountIds]){
-         String description = '';
+      for(Account parent : [SELECT Id, Description,(SELECT Id,Name,Description 
+                            FROM ChildAccounts 
+                            ORDER BY CreatedDate DESC) 
+                            FROM Account 
+                            WHERE Id IN :parentAccountIds]){
+       
+         System.debug(parent.Description);
+         
          for(Account child : parent.ChildAccounts){
-            description += child.Description;
-         }
+            System.debug(child.Description);
+            parent.Description = String.format('\n The Account ID: {0} \n Account Name: {1}',  
+               new List<Object>{  
+                                 child.Id, 
+                                 child.Name
+                               
+                              }); 
+                           } 
          accountsToUpdate.add(parent);
       }
       update accountsToUpdate;
+   
+      List<Account> contactToFind = new List<Account>();
+      for(Account con : [SELECT Id, Description,(SELECT AccountId,Name,Birthdate 
+                            FROM Contacts 
+                            ORDER BY Birthdate ASC 
+                            LIMIT 1) 
+                            FROM Account 
+                            WHERE Id IN :parentAccountIds]){
+         
+                      
+                      System.debug(con.Description);
+         
+                      for(Contact cc : con.Contacts){
+                        Date tod = cc.Birthdate;
+                        Integer temp = tod.daysBetween(date.today()) ;
+                        integer age = Integer.valueOf(temp/365);
+                        System.debug(cc.Birthdate);
+                        System.debug('No. of Days : '+temp);
+                        System.debug('Age:' +age);
+  
+                        //con.Description += cc.Birthdate.format();
+                        con.Description += String.format('\n The Oldest Contact: {0} \n Oldest Contact Age: {1} \n Oldest Contact Birthdate: {2}',  
+                        new List<Object>{  
+                                 cc.Name, 
+                                 Age,
+                                 cc.Birthdate.format()
+                               
+                              });  
+                      }
+                      contactToFind.add(con);
+                   }
+                   update contactToFind;
+      
    }
 }
+

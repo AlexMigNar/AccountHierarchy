@@ -70,3 +70,6 @@ git push -f origin master
 # Log in to your Devhub
 sfdx auth:web:login --setdefaultdevhubusername --setalias DevHub
 
+# Debug Log
+
+sfdx force:apex:log:tail --color 

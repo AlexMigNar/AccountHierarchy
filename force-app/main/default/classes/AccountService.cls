@@ -9,8 +9,8 @@ public with sharing class AccountService {
 
          List<Contact> contacts = [
             SELECT AccountId,Birthdate,Name
-            FROM Contact
-            WHERE AccountId = :Trigger.New ];
+            FROM Contact 
+            WHERE AccountId IN :Trigger.New ];
 
             Date tod = contacts[0].Birthdate;
             Integer temp = tod.daysBetween(date.today()) ;
@@ -23,9 +23,9 @@ public with sharing class AccountService {
             acc.Description = null;
          } else {
             System.debug('contact is not Empty');
-            acc.Description = String.format('The Contact ID: {0} Contact Name: {1} Oldest Contact Birthdate: {2} Age of Oldest Contact: {3}',
+            acc.Description = String.format('The Oldest Contact ID: {0} \n Contact Name: {1} \n Oldest Contact Birthdate: {2} \n Age of Oldest Contact: {3}',
                new List<Object>{
-                  acc.Id,
+                  contacts[0].AccountId,
                   contacts[0].Name,
                   contacts[0].Birthdate.format(),
                   age
