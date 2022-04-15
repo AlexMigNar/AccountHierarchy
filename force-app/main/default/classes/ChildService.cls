@@ -36,7 +36,7 @@ public with sharing class ChildService
          WHERE Id IN :parentAccountIds]
       ){
        
-         System.debug(parent.ChildAccounts);
+         //System.debug(parent.ChildAccounts);
          accountIds.add(parent.Id);
          for(Account child : parent.ChildAccounts){
             accountIds.add(child.Id);
