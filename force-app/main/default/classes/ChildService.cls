@@ -17,42 +17,57 @@ public with sharing class ChildService
             parentAccountIds.add(acc.ParentId);
          }
       
-
+         
+         System.debug(parentAccountIds);
+         System.debug(ChildAccountIds);
              
       }
 
       List<Account> accountsToUpdate = new List<Account>();
-      for(Account parent : [SELECT Id, Description,(SELECT Id,Name,Description 
-                            FROM ChildAccounts 
-                            ORDER BY CreatedDate DESC) 
-                            FROM Account 
-                            WHERE Id IN :parentAccountIds]){
+      Set<Id> ChildIds = new Set<Id>();
+      Set<Id> accountIds = new Set<Id>(); // Save the Parent ID and Child IDs
+      
+      for(Account parent : [
+         SELECT Id, Description,(
+            SELECT Id,Name,Description 
+            FROM ChildAccounts 
+            ORDER BY CreatedDate DESC) 
+         FROM Account 
+         WHERE Id IN :parentAccountIds]
+      ){
        
-         System.debug(parent.Description);
-         
+         System.debug(parent.ChildAccounts);
+         accountIds.add(parent.Id);
          for(Account child : parent.ChildAccounts){
-            System.debug(child.Description);
-            parent.Description = String.format('\n The Account ID: {0} \n Account Name: {1}',  
+            accountIds.add(child.Id);
+
+            if(child.Id == null){
+               System.debug('contact is Empty');
+               parent.Description = '';
+            } else {
+            parent.Description = String.format('\n The Account ID: {0} \n Account Name: {1} \n Child Description: {2}',  
                new List<Object>{  
                                  child.Id, 
-                                 child.Name
-                               
-                              }); 
+                                 child.Name,
+                                 child.Description
+                               }); 
                            } 
          accountsToUpdate.add(parent);
       }
+   }
       update accountsToUpdate;
    
       List<Account> contactToFind = new List<Account>();
-      for(Account con : [SELECT Id, Description,(SELECT AccountId,Name,Birthdate 
-                            FROM Contacts 
-                            ORDER BY Birthdate ASC 
-                            LIMIT 1) 
-                            FROM Account 
-                            WHERE Id IN :parentAccountIds]){
+      for(Account con : [
+         SELECT Id, Description,(SELECT AccountId,Name,Birthdate 
+            FROM Contacts 
+            ORDER BY Birthdate ASC 
+            LIMIT 1) 
+         FROM Account 
+         WHERE Id IN :parentAccountIds]){
          
                       
-                      System.debug(con.Description);
+                      System.debug(con.Id);
          
                       for(Contact cc : con.Contacts){
                         Date tod = cc.Birthdate;
