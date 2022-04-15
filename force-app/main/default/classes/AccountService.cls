@@ -6,7 +6,7 @@ public with sharing class AccountService {
 
          //if (acc.ParentId == null) continue;
          //System.debug('account ' + acc.Id + 'has parent Account');
-
+        // acc.Description = '';
          List<Contact> contacts = [
             SELECT AccountId,Birthdate,Name
             FROM Contact 
