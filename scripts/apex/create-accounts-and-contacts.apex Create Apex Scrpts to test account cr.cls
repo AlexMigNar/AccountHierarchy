@@ -15,15 +15,15 @@ insert a;
 a.Description = 'This is an updated account description';
 update a;
 
-Account acc = new Account(Name='Naina Industries');
+Account acc = new Account(Name='Naina Bank Chicago Head Office');
 insert acc;
 
 
 
 insert new List<Contact>{
-    new Contact(LastName='Contact 1',AccountId='0015400000nVsFhAAK',Birthdate=date.newInstance(1980,05,22)),
-    new Contact(LastName='Contact 2',AccountId='0015400000nVsFhAAK',Birthdate=date.newInstance(1970,05,22).addMonths(5)),
-    new Contact(LastName='Contact 3',AccountId='0015400000nVsFhAAK',Birthdate=date.newInstance(1960,05,22).addMonths(3))
+    new Contact(LastName='Abhay',AccountId='0018A00000mGdkAQAS',Birthdate=date.newInstance(1987,18,05)),
+    new Contact(LastName='Gajan',AccountId='0018A00000mGdkAQAS',Birthdate=date.newInstance(1997,13,09).addMonths(5)),
+    new Contact(LastName='Rajan',AccountId='0018A00000mGdkAQAS',Birthdate=date.newInstance(1990,12,15).addMonths(3))
 };
 
 List<Account> accounts = [SELECT Id,Description,(SELECT Id,Name,Description FROM ChildAccounts) FROM Account WHERE Id IN :Trigger.new ];
@@ -49,6 +49,8 @@ update acc;
     c.FirstName='Isabel';
     c.Phone='123454354';
     update c;
+
+// Update existing contact name
 
 
 
@@ -112,9 +114,13 @@ for(Integer i=0 ; i<5; i++){
     if(parentId != null){
         acc.ParentId = parentId;
     }
+
     insert acc;
     parentId = acc.Id;
+    System.debug(acc.Id);
 }
+
+
 
 
 Account acc1 = new Account(Name='Naina Industries 1');
@@ -160,3 +166,31 @@ FROM Account];
 
 
  to calculate Age
+
+ // To delete all the accounts
+
+delete[SELECT Id, Description,(
+            SELECT Id,Name,Description 
+            FROM ChildAccounts 
+            ORDER BY CreatedDate DESC) 
+            FROM Account 
+            WHERE Name!='Sample Account for Entitlements'];
+
+            // Checking the list query
+
+            List<Account> parentIdsList = [SELECT Id, ParentId,Description FROM Account]; 
+            List<Account> conBirth = [Select Id, (SELECT AccountId,Name,Birthdate 
+                        FROM Contacts) FROM Account];
+            System.debug(parentIdsList[0]);  
+            System.debug(parentIdsList[1]);  
+            System.debug(parentIdsList[2]);  
+            System.debug(parentIdsList[3]);  
+            System.debug(parentIdsList[4]);  
+      
+            System.debug(conBirth[0]); 
+            System.debug(conBirth[1]); 
+            System.debug(conBirth[2]);
+      
+            integer l = parentIdsList.size();
+            System.debug(l);  
+            

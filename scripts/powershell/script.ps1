@@ -73,3 +73,10 @@ sfdx auth:web:login --setdefaultdevhubusername --setalias DevHub
 # Debug Log
 
 sfdx force:apex:log:tail --color 
+
+# Git Commands
+
+git branch
+git push
+git merge
+

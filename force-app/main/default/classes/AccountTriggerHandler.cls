@@ -3,10 +3,11 @@ public with sharing class AccountTriggerHandler extends TriggerHandler{
     
     {
         System.debug('beforeUpdate');
-        //AccountService.AccountDescriptionupdate(Trigger.new);
+        
         //ParentChildAccount.ChildAccountDetails(Trigger.new);
-       ChildService.updateParentDescription(Trigger.new);
-        //ServiceChild.updateParentDescription(Trigger.new);
+      ChildService3.updateParentDescription(Trigger.new);
+       //AccountService2.AccountDescriptionupdate(Trigger.new);
+     //ServiceChild.updateParentDescription(Trigger.new);
        // ServiceAccount.AccountDescriptionupdate(Trigger.new);
     }
 }
